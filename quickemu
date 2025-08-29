@@ -1576,23 +1576,23 @@ function start_viewer {
             if [ "${viewer}" == "remote-viewer" ]; then
                 # show via viewer: remote-viewer
                 if [ -n "${PUBLIC}" ]; then
-                    echo " - Viewer:   ${viewer} --title \"${VMNAME}\" --spice-shared-dir \"${PUBLIC}\" ${FULLSCREEN} \"spice://localhost:${spice_port}\" >/dev/null 2>&1 &"
-                    ${viewer} --title "${VMNAME}" --spice-shared-dir "${PUBLIC}" ${FULLSCREEN} "spice://localhost:${spice_port}" >/dev/null 2>&1 &
+                    echo " - Viewer:   ${viewer} --title \"${VMNAME}\" --spice-shared-dir \"${PUBLIC}\" ${FULLSCREEN} \"spice://localhost:${spice_port}\" ${viewer_extra_args} >/dev/null 2>&1 &"
+                    ${viewer} --title "${VMNAME}" --spice-shared-dir "${PUBLIC}" ${FULLSCREEN} "spice://localhost:${spice_port}" "${viewer_extra_args}" >/dev/null 2>&1 &
                     errno=$?
                 else
-                    echo " - Viewer:   ${viewer} --title \"${VMNAME}\" ${FULLSCREEN} \"spice://localhost:${spice_port}\" >/dev/null 2>&1 &"
-                    ${viewer} --title "${VMNAME}" ${FULLSCREEN} "spice://localhost:${spice_port}" >/dev/null 2>&1 &
+                    echo " - Viewer:   ${viewer} --title \"${VMNAME}\" ${FULLSCREEN} \"spice://localhost:${spice_port}\" ${viewer_extra_args} >/dev/null 2>&1 &"
+                    ${viewer} --title "${VMNAME}" ${FULLSCREEN} "spice://localhost:${spice_port}" "${viewer_extra_args}" >/dev/null 2>&1 &
                     errno=$?
                 fi
             elif [ "${viewer}" == "spicy" ]; then
                 # show via viewer: spicy
                 if [ -n "${PUBLIC}" ]; then
-                    echo " - Viewer:   ${viewer} --title \"${VMNAME}\" --port \"${spice_port}\" --spice-shared-dir \"${PUBLIC}\" \"${FULLSCREEN}\" >/dev/null 2>&1 &"
-                    ${viewer} --title "${VMNAME}" --port "${spice_port}" --spice-shared-dir "${PUBLIC}" "${FULLSCREEN}" >/dev/null 2>&1 &
+                    echo " - Viewer:   ${viewer} --title \"${VMNAME}\" --port \"${spice_port}\" --spice-shared-dir \"${PUBLIC}\" \"${FULLSCREEN}\" ${viewer_extra_args} >/dev/null 2>&1 &"
+                    ${viewer} --title "${VMNAME}" --port "${spice_port}" --spice-shared-dir "${PUBLIC}" "${FULLSCREEN}" "${viewer_extra_args}" >/dev/null 2>&1 &
                     errno=$?
                 else
-                    echo " - Viewer:   ${viewer} --title \"${VMNAME}\" --port \"${spice_port}\" \"${FULLSCREEN}\" >/dev/null 2>&1 &"
-                    ${viewer} --title "${VMNAME}" --port "${spice_port}" "${FULLSCREEN}" >/dev/null 2>&1 &
+                    echo " - Viewer:   ${viewer} --title \"${VMNAME}\" --port \"${spice_port}\" \"${FULLSCREEN}\" ${viewer_extra_args} >/dev/null 2>&1 &"
+                    ${viewer} --title "${VMNAME}" --port "${spice_port}" "${FULLSCREEN}" "${viewer_extra_args}" >/dev/null 2>&1 &
                     errno=$?
                 fi
             fi
@@ -1889,6 +1889,7 @@ secureboot="off"
 tpm="off"
 usb_devices=()
 viewer="${viewer:-spicy}"
+viewer_extra_args=""
 width="${width:-}"
 height="${height:-}"
 ssh_port="${ssh_port:-}"
