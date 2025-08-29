@@ -1596,23 +1596,27 @@ function start_viewer {
             if [ "${viewer}" == "remote-viewer" ]; then
                 # show via viewer: remote-viewer
                 if [ -n "${PUBLIC}" ]; then
-                    echo " - Viewer:   ${viewer} --title \"${VMNAME}\" --spice-shared-dir \"${PUBLIC}\" ${FULLSCREEN} \"spice://localhost:${spice_port}\" >/dev/null 2>&1 &"
-                    ${viewer} --title "${VMNAME}" --spice-shared-dir "${PUBLIC}" ${FULLSCREEN} "spice://localhost:${spice_port}" >/dev/null 2>&1 &
+                    echo " - Viewer:   ${viewer} --title \"${VMNAME}\" --spice-shared-dir \"${PUBLIC}\" ${FULLSCREEN} \"spice://localhost:${spice_port}\" ${viewer_extra_args} >/dev/null 2>&1 &"
+                    # shellcheck disable=SC2086
+                    ${viewer} --title "${VMNAME}" --spice-shared-dir "${PUBLIC}" ${FULLSCREEN} "spice://localhost:${spice_port}" ${viewer_extra_args} >/dev/null 2>&1 &
                     errno=$?
                 else
-                    echo " - Viewer:   ${viewer} --title \"${VMNAME}\" ${FULLSCREEN} \"spice://localhost:${spice_port}\" >/dev/null 2>&1 &"
-                    ${viewer} --title "${VMNAME}" ${FULLSCREEN} "spice://localhost:${spice_port}" >/dev/null 2>&1 &
+                    echo " - Viewer:   ${viewer} --title \"${VMNAME}\" ${FULLSCREEN} \"spice://localhost:${spice_port}\" ${viewer_extra_args} >/dev/null 2>&1 &"
+                    # shellcheck disable=SC2086
+                    ${viewer} --title "${VMNAME}" ${FULLSCREEN} "spice://localhost:${spice_port}" ${viewer_extra_args} >/dev/null 2>&1 &
                     errno=$?
                 fi
             elif [ "${viewer}" == "spicy" ]; then
                 # show via viewer: spicy
                 if [ -n "${PUBLIC}" ]; then
-                    echo " - Viewer:   ${viewer} --title \"${VMNAME}\" --port \"${spice_port}\" --spice-shared-dir \"${PUBLIC}\" \"${FULLSCREEN}\" >/dev/null 2>&1 &"
-                    ${viewer} --title "${VMNAME}" --port "${spice_port}" --spice-shared-dir "${PUBLIC}" "${FULLSCREEN}" >/dev/null 2>&1 &
+                    echo " - Viewer:   ${viewer} --title \"${VMNAME}\" --port \"${spice_port}\" --spice-shared-dir \"${PUBLIC}\" \"${FULLSCREEN}\" ${viewer_extra_args} >/dev/null 2>&1 &"
+                    # shellcheck disable=SC2086
+                    ${viewer} --title "${VMNAME}" --port "${spice_port}" --spice-shared-dir "${PUBLIC}" "${FULLSCREEN}" ${viewer_extra_args} >/dev/null 2>&1 &
                     errno=$?
                 else
-                    echo " - Viewer:   ${viewer} --title \"${VMNAME}\" --port \"${spice_port}\" \"${FULLSCREEN}\" >/dev/null 2>&1 &"
-                    ${viewer} --title "${VMNAME}" --port "${spice_port}" "${FULLSCREEN}" >/dev/null 2>&1 &
+                    echo " - Viewer:   ${viewer} --title \"${VMNAME}\" --port \"${spice_port}\" \"${FULLSCREEN}\" ${viewer_extra_args} >/dev/null 2>&1 &"
+                    # shellcheck disable=SC2086
+                    ${viewer} --title "${VMNAME}" --port "${spice_port}" "${FULLSCREEN}" ${viewer_extra_args} >/dev/null 2>&1 &
                     errno=$?
                 fi
             fi
@@ -1676,6 +1680,7 @@ function usage() {
     echo "  --snapshot info                   : Show disk/snapshot info."
     echo "  --status-quo                      : Do not commit any changes to disk/snapshot."
     echo "  --viewer <viewer>                 : Choose an alternative SPICE viewer. @Options: 'spicy' (default), 'remote-viewer', 'none'"
+    echo "  --viewer-extra-args <arguments>   : Pass extra arguments to the SPICE viewer."
     echo "  --width <width>                   : Set VM screen width; requires '--height'"
     echo "  --height <height>                 : Set VM screen height; requires '--width'"
     echo "  --ssh-port <port>                 : Set SSH port manually"
@@ -1910,6 +1915,7 @@ secureboot="off"
 tpm="off"
 usb_devices=()
 viewer="${viewer:-spicy}"
+viewer_extra_args=""
 width="${width:-}"
 height="${height:-}"
 ssh_port="${ssh_port:-}"

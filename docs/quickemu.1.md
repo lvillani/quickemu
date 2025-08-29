@@ -78,6 +78,9 @@ You can also pass optional parameters
 :   Choose an alternative SPICE viewer. @Options: 'spicy' (default),
     'remote-viewer', 'none'
 
+**--viewer-extra-args \<arguments\>**
+:   Pass extra arguments to the SPICE viewer.
+
 **--width \<width\>**
 :   Set VM screen width; requires '--height'
 
@@ -255,7 +258,7 @@ These examples may save a little typing:
 This also applies to derivatives:
 
 ``` shell
-sudo apt-get install bash coreutils curl genisoimage grep jq mesa-utils ovmf pciutils procps python3 qemu sed socat spice-client-gtk swtpm-tools unzip usbutils util-linux xdg-user-dirs xrandr zsync 
+sudo apt-get install bash coreutils curl genisoimage grep jq mesa-utils ovmf pciutils procps python3 qemu sed socat spice-client-gtk swtpm-tools unzip usbutils util-linux xdg-user-dirs xrandr zsync
 ```
 
 #### Install requirements on Fedora hosts
@@ -769,6 +772,7 @@ Arguments
   --snapshot info                   : Show disk/snapshot info.
   --status-quo                      : Do not commit any changes to disk/snapshot.
   --viewer <viewer>                 : Choose an alternative viewer. @Options: 'spicy' (default), 'remote-viewer', 'none'
+  --viewer-extra-args <arguments>   : Pass extra arguments to the SPICE viewer.
   --width <width>                   : Set VM screen width; requires '--height'
   --height <height>                 : Set VM screen height; requires '--width'
   --ssh-port <port>                 : Set SSH port manually
