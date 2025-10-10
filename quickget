@@ -1464,7 +1464,9 @@ function web_get() {
         echo "- URL: ${URL}"
     fi
 
-    if ! curl --disable --progress-bar --location --output "${DIR}/${FILE}" --continue-at - --user-agent "${USER_AGENT}" "${HEADERS[@]}" -- "${URL}"; then
+    if curl --disable --progress-bar --location --output "${CACHE_DIR}/${FILE}" --continue-at - --user-agent "${USER_AGENT}" "${HEADERS[@]}" -- "${URL}"; then
+        ln -f "${CACHE_DIR}/${FILE}" "${DIR}/${FILE}"
+    else
         echo "ERROR! Failed to download ${URL} with curl."
         rm -f "${DIR}/${FILE}"
         exit 1
@@ -3805,6 +3807,14 @@ if [ ! -x "${CURL}" ]; then
     exit 1
 fi
 CURL_VERSION=$("${CURL}" --version | head -n 1 | cut -d' ' -f2)
+
+# Determine cache directory following the XDG spec
+if [ -n "${XDG_CACHE_HOME}" ]; then
+    CACHE_DIR="${XDG_CACHE_HOME}/quickget"
+else
+    CACHE_DIR="${HOME}/.cache/quickget"
+fi
+mkdir -p "${CACHE_DIR}"
 
 #TODO: Deprecate `list`, `list_csv`, and `list_json` in favor of `--list`, `--list-csv`, and `--list-json`
 
