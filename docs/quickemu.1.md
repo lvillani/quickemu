@@ -74,8 +74,8 @@ You can also pass optional parameters
 **--status-quo**
 :   Do not commit any changes to disk/snapshot.
 
-**--viewer \<viewer\>**
-:   Choose an alternative viewer. @Options: 'spicy' (default),
+**--viewer <viewer>**
+:   Choose an alternative SPICE viewer. @Options: 'spicy' (default),
     'remote-viewer', 'none'
 
 **--width \<width\>**
