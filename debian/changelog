@@ -1,5 +1,5 @@
-quickemu (4.9.6-1) unstable; urgency=medium
+quickemu (4.9.10-1ubuntu2) noble; urgency=medium
 
   * New upstream release.
 
- -- Martin Wimpress <code@wimpress.io>  Fri, 10 Nov 2023 14:49:08 +0000
+ -- Lorenzo Villani <lorenzo@villani.me>  Wed, 25 Mar 2026 10:10:00 +0000
